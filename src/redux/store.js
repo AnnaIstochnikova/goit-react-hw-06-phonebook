@@ -8,7 +8,6 @@ const enhancer = devToolsEnhancer();
 export const store = configureStore({
   reducer: {
     users: phonebookReducer,
-    filters: null,
   },
   enhancer,
 });

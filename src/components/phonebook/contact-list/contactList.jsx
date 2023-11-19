@@ -1,28 +1,44 @@
-import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const ContactList = ({ allContacts, onDelete }) => {
-  const listItems = allContacts.map(contact => {
-    const id = nanoid();
-    return (
-      <li key={id}>
-        {contact.name}: {contact.phoneNumber}
-        <button
-          className="button-delete"
-          type="button"
-          onClick={() => onDelete(contact)}
-        >
-          Delete
-        </button>
-      </li>
-    );
-  });
+import { getUsers } from 'redux/selectors';
+import { deleteUser } from 'redux/usersSlice';
 
-  return <ul>{listItems}</ul>;
+export const ContactList = ({ user }) => {
+  const [usersList, setUsersList] = useState([]);
+  const usersFromStore = useSelector(getUsers).contacts;
+  const dispatch = useDispatch();
+
+  const onDelete = () => {
+    dispatch(deleteUser(user.id));
+  };
+
+  useEffect(() => {
+    console.log(usersFromStore);
+    setUsersList(usersFromStore);
+  }, [usersFromStore]);
+
+  return (
+    <ul>
+      {usersList.map(contact => {
+        const { name, phoneNumber } = contact.userData;
+        console.log(contact.id);
+        return (
+          <li key={contact.id}>
+            {name}: {phoneNumber}
+            <button className="button-delete" type="button" onClick={onDelete}>
+              Delete
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
-ContactList.propTypes = {
-  listItems: PropTypes.array,
-  onDelete: PropTypes.func,
-  id: PropTypes.string,
-};
+// ContactList.propTypes = {
+//   listItems: PropTypes.array,
+//   onDelete: PropTypes.func,
+//   id: PropTypes.string,
+// };
