@@ -41,8 +41,22 @@ const phonebookSlice = createSlice({
       // console.log(action.payload);
       // return state.splice(index, 1);
     },
+    addFilter: {
+      reducer(state, action) {
+        return (state = { filter: action.payload });
+      },
+    },
+    filterUser: {
+      reducer(state, action) {
+        // return state;
+        return (state = state.contacts.filter(
+          user => user.name === action.payload
+        ));
+      },
+    },
   },
 });
 
-export const { addUser, deleteUser } = phonebookSlice.actions;
+export const { addUser, deleteUser, filterUser, addFilter } =
+  phonebookSlice.actions;
 export const phonebookReducer = phonebookSlice.reducer;

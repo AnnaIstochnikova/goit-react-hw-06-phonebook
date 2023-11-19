@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
-// import { Filter } from './filter/filter';
+import { Filter } from './filter/filter';
 import { ContactList } from './contact-list/contactList';
 import { ContactForm } from './contact-form/contactForm';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from 'redux/selectors';
+import { addFilter, filterUser } from 'redux/usersSlice';
 
 export const Phonebook = () => {
   // const [contacts, setContacts] = useState([]);
@@ -14,15 +15,10 @@ export const Phonebook = () => {
   // const filteredContacts = contacts.filter(contact =>
   //   contact.name.toLowerCase().includes(filter)
   // );
-
+  const dispatch = useDispatch();
   const users = useSelector(getUsers).contacts;
+  const filterFromStore = useSelector(getUsers).filter;
   console.log(users);
-  // useEffect(() => {
-  //   console.log(users);
-  //   if (users.length !== 0) {
-  //     setShowContactList(true);
-  //   }
-  // }, [showContactList, users]);
 
   // const deleteContact = contact => {
   //   setContacts(prev => {
@@ -38,10 +34,12 @@ export const Phonebook = () => {
   //   });
   // };
 
-  // const findContact = event => {
-  //   event.preventDefault();
-  //   setFilter(event.target.value.toLowerCase());
-  // };
+  const findContact = event => {
+    event.preventDefault();
+    const search = event.target.value.toLowerCase();
+    dispatch(addFilter(search));
+    dispatch(filterUser(filterFromStore));
+  };
 
   // const handleSubmit = event => {
   //   event.preventDefault();
@@ -87,11 +85,11 @@ export const Phonebook = () => {
     <>
       <h1>Phonebook</h1>
       <ContactForm />
-      {/* {showContactList && (
+      {showContactList && (
         <>
           <Filter filterFn={findContact} />
         </>
-      )} */}
+      )}
       {showContactList && (
         <>
           <h2>Contacts</h2>

@@ -6,8 +6,9 @@ import { getUsers } from 'redux/selectors';
 import { deleteUser } from 'redux/usersSlice';
 
 export const ContactList = ({ user }) => {
-  const [usersList, setUsersList] = useState([]);
   const usersFromStore = useSelector(getUsers).contacts;
+  const [usersList, setUsersList] = useState([]);
+
   const dispatch = useDispatch();
 
   const onDelete = () => {
@@ -17,7 +18,8 @@ export const ContactList = ({ user }) => {
   useEffect(() => {
     console.log(usersFromStore);
     setUsersList(usersFromStore);
-  }, [usersFromStore]);
+    console.log(usersList);
+  }, [usersFromStore, usersList]);
 
   return (
     <ul>
