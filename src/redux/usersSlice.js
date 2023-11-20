@@ -36,17 +36,34 @@ const phonebookSlice = createSlice({
         return (state = { filter: action.payload });
       },
     },
-    filterUser: {
+    addUsersFromLocalStorage: {
       reducer(state, action) {
-        // return state;
-        return (state = state.contacts.filter(
-          user => user.name === action.payload
-        ));
+        console.log(action.payload);
+        return (state = {
+          contacts: [...state.contacts, action.payload.userData],
+        });
       },
     },
+    // filterUser: {
+    //   reducer(state, action) {
+    //     return {
+    //       // ...state,
+    //       filter: action.payload,
+    //       contacts: [
+    //         ...state.contacts.filter(user => user.name === action.payload),
+    //       ],
+    //     };
+    //   },
+    // reducer(state, action) {
+    //   // return state;
+    //   return (state = state.contacts.filter(
+    //     user => user.name === action.payload
+    //   ));
+    // },
+    // },
   },
 });
 
-export const { addUser, deleteUser, filterUser, addFilter } =
+export const { addUser, deleteUser, addFilter, addUsersFromLocalStorage } =
   phonebookSlice.actions;
 export const phonebookReducer = phonebookSlice.reducer;

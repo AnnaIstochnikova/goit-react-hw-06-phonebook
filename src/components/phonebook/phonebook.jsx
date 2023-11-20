@@ -6,18 +6,17 @@ import { ContactList } from './contact-list/contactList';
 import { ContactForm } from './contact-form/contactForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from 'redux/selectors';
-import { addFilter, filterUser } from 'redux/usersSlice';
+import { addFilter, addUser } from 'redux/usersSlice';
 
 export const Phonebook = () => {
-  const [showContactList, setShowContactList] = useState();
-  // const [filter, setFilter] = useState('');
+  const [showContactList, setShowContactList] = useState(true);
   // const filteredContacts = contacts.filter(contact =>
   //   contact.name.toLowerCase().includes(filter)
   // );
   const dispatch = useDispatch();
   const users = useSelector(getUsers).contacts;
   const filterFromStore = useSelector(getUsers).filter;
-  console.log(users);
+  console.log(filterFromStore);
 
   // const deleteContact = contact => {
   //   setContacts(prev => {
@@ -36,9 +35,23 @@ export const Phonebook = () => {
   const findContact = event => {
     event.preventDefault();
     const search = event.target.value.toLowerCase();
+    console.log(event);
     dispatch(addFilter(search));
-    dispatch(filterUser(filterFromStore));
+    console.log(filterFromStore);
+    dispatch(addUser(users.filter(user => user === filterFromStore)));
+    // dispatch(filterUser(name));
+
+    // dispatch(filterUser(search));
+
+    // filterFromStore !== undefined ? dispatch(filterUser(filterFromStore)) : ;
   };
+
+  // useEffect(
+  //   name => {
+  //     dispatch(filterUser(name));
+  //   },
+  //   [filterFromStore]
+  // );
 
   //   setContacts(prev => {
   //     const allContacts = [...prev, newContact];
@@ -52,7 +65,7 @@ export const Phonebook = () => {
   useEffect(() => {
     users !== undefined && users.length !== 0
       ? setShowContactList(true)
-      : setShowContactList(false);
+      : setShowContactList(true);
   }, [users]);
 
   // useEffect(() => {

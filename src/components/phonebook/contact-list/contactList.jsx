@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUsers } from 'redux/selectors';
-import { deleteUser } from 'redux/usersSlice';
+import {
+  addUser,
+  addUsersFromLocalStorage,
+  deleteUser,
+} from 'redux/usersSlice';
 
 export const ContactList = ({ user }) => {
   const usersFromStore = useSelector(getUsers).contacts;
@@ -13,19 +17,32 @@ export const ContactList = ({ user }) => {
 
   const onDelete = contactId => {
     dispatch(deleteUser(contactId));
+    // setUsersList(usersFromStore);
   };
 
   useEffect(() => {
-    console.log(usersFromStore);
-    setUsersList(usersFromStore);
-    console.log(usersList);
-  }, [usersFromStore, usersList]);
+    try {
+      const contactsFromLocalStorage = localStorage.getItem('Contacts');
+      const data = JSON.parse(contactsFromLocalStorage);
 
+      if (contactsFromLocalStorage.length !== 2) {
+        dispatch(addUser(data));
+
+        console.log(usersFromStore);
+        console.log(data);
+        console.log(usersList);
+
+        return;
+      }
+      setUsersList(data, usersFromStore);
+    } catch (error) {
+      console.error('Error ', error.message);
+    }
+  }, []);
   return (
     <ul>
       {usersList.map(contact => {
         const { name, phoneNumber } = contact.userData;
-        console.log(contact.id);
         return (
           <li key={contact.id}>
             {name}: {phoneNumber}

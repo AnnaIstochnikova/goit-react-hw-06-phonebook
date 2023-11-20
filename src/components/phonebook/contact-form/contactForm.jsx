@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUsers } from 'redux/selectors';
@@ -7,6 +8,17 @@ import { addUser } from 'redux/usersSlice';
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const usersFromStore = useSelector(getUsers).contacts;
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setData(usersFromStore);
+  }, [usersFromStore]);
+
+  //  useEffect(
+  //     setData(usersFromStore);
+  //   localStorage.setItem('Contacts', JSON.stringify(data));,
+  //     [filterFromStore]
+  //   );
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -26,9 +38,21 @@ export const ContactForm = () => {
         }
       }
     }
+
+    // useEffect(localStorage.setItem('Contacts', JSON.stringify(data)));
+
     dispatch(addUser(newContact));
+
+    console.log(usersFromStore);
     form.reset();
   };
+
+  useEffect(() => {
+    if (usersFromStore) {
+      localStorage.setItem('Contacts', JSON.stringify(data));
+    }
+  }, [usersFromStore, data]);
+
   return (
     <>
       <form onSubmit={handleSubmit}>
