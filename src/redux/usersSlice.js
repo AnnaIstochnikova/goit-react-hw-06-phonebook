@@ -40,7 +40,7 @@ const phonebookSlice = createSlice({
       reducer(state, action) {
         console.log(action.payload);
         return (state = {
-          contacts: [...state.contacts, action.payload.userData],
+          contacts: [...state.contacts, action.payload],
         });
       },
     },

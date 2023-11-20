@@ -24,22 +24,14 @@ export const ContactList = ({ user }) => {
     try {
       const contactsFromLocalStorage = localStorage.getItem('Contacts');
       const data = JSON.parse(contactsFromLocalStorage);
-      console.log(contactsFromLocalStorage.length);
-      if (contactsFromLocalStorage.length !== 2) {
-        dispatch(addUser(data));
-
-        console.log(usersFromStore);
-        console.log(data);
-        console.log(usersList);
-
-        return;
-      }
-      setUsersList(data, usersFromStore);
+      console.log(data);
+      setUsersList(data);
+      return;
     } catch (error) {
       console.error('Error ', error.message);
     }
-    // console.log(usersList);
   }, []);
+
   console.log(usersList);
   return (
     <ul>
