@@ -9,8 +9,7 @@ import { getUsers } from 'redux/selectors';
 import { addFilter, filterUser } from 'redux/usersSlice';
 
 export const Phonebook = () => {
-  // const [contacts, setContacts] = useState([]);
-  const [showContactList, setShowContactList] = useState(true);
+  const [showContactList, setShowContactList] = useState();
   // const [filter, setFilter] = useState('');
   // const filteredContacts = contacts.filter(contact =>
   //   contact.name.toLowerCase().includes(filter)
@@ -41,23 +40,6 @@ export const Phonebook = () => {
     dispatch(filterUser(filterFromStore));
   };
 
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   const form = event.currentTarget;
-  //   const name = form.elements.name.value;
-  //   let phoneNumber = form.elements.number.value;
-
-  //   const newContact = {
-  //     name: name,
-  //     phoneNumber: phoneNumber,
-  //   };
-
-  //   for (const element of contacts) {
-  //     if (element.name === name) {
-  //       alert(`${name} is already in contacts`);
-  //       return;
-  //     }
-  //   }
   //   setContacts(prev => {
   //     const allContacts = [...prev, newContact];
   //     localStorage.setItem('Contacts', JSON.stringify(allContacts));
@@ -66,6 +48,12 @@ export const Phonebook = () => {
   //   });
   //   form.reset();
   // };
+
+  useEffect(() => {
+    users !== undefined && users.length !== 0
+      ? setShowContactList(true)
+      : setShowContactList(false);
+  }, [users]);
 
   // useEffect(() => {
   //   try {

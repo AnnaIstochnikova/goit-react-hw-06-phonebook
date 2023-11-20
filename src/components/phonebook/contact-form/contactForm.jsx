@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getUsers } from 'redux/selectors';
 import { addUser } from 'redux/usersSlice';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const usersFromStore = useSelector(getUsers).contacts;
-  // console.log(useSelector(getUsers));
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -17,11 +17,13 @@ export const ContactForm = () => {
       name: newName,
       phoneNumber: phoneNumber,
     };
-    for (const element of usersFromStore) {
-      const { name } = element.userData;
-      if (name === newName) {
-        alert(`${name} is already in contacts`);
-        return;
+    if (usersFromStore) {
+      for (const element of usersFromStore) {
+        const { name } = element.userData;
+        if (name === newName) {
+          alert(`${name} is already in contacts`);
+          return;
+        }
       }
     }
     dispatch(addUser(newContact));

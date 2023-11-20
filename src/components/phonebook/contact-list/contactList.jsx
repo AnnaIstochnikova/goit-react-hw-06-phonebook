@@ -11,8 +11,8 @@ export const ContactList = ({ user }) => {
 
   const dispatch = useDispatch();
 
-  const onDelete = () => {
-    dispatch(deleteUser(user.id));
+  const onDelete = contactId => {
+    dispatch(deleteUser(contactId));
   };
 
   useEffect(() => {
@@ -29,7 +29,11 @@ export const ContactList = ({ user }) => {
         return (
           <li key={contact.id}>
             {name}: {phoneNumber}
-            <button className="button-delete" type="button" onClick={onDelete}>
+            <button
+              className="button-delete"
+              type="button"
+              onClick={() => onDelete(contact.id)}
+            >
               Delete
             </button>
           </li>
