@@ -26,11 +26,18 @@ export const ContactList = ({ user }) => {
       const data = JSON.parse(contactsFromLocalStorage);
       console.log(data);
       setUsersList(data);
-      return;
     } catch (error) {
       console.error('Error ', error.message);
     }
-  }, []);
+  }, [usersFromStore, dispatch]);
+
+  useEffect(() => {
+    console.log(usersFromStore);
+    // if (usersFromStore.length !== 0) {
+    //   console.log(usersFromStore);
+    localStorage.setItem('Contacts', JSON.stringify(usersFromStore));
+    //}
+  }, [usersFromStore, dispatch, usersList]);
 
   console.log(usersList);
   return (

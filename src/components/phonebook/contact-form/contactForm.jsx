@@ -14,12 +14,6 @@ export const ContactForm = () => {
     setData(usersFromStore);
   }, [usersFromStore]);
 
-  //  useEffect(
-  //     setData(usersFromStore);
-  //   localStorage.setItem('Contacts', JSON.stringify(data));,
-  //     [filterFromStore]
-  //   );
-
   const handleSubmit = event => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -44,14 +38,6 @@ export const ContactForm = () => {
     console.log(usersFromStore);
     form.reset();
   };
-
-  useEffect(() => {
-    console.log(usersFromStore);
-    if (usersFromStore.length !== 0) {
-      console.log(usersFromStore);
-      localStorage.setItem('Contacts', JSON.stringify(usersFromStore));
-    }
-  }, [usersFromStore, data]);
 
   return (
     <>
