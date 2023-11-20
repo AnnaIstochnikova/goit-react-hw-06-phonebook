@@ -13,11 +13,12 @@ export const Phonebook = () => {
   // const filteredContacts = contacts.filter(contact =>
   //   contact.name.toLowerCase().includes(filter)
   // );
+
   const dispatch = useDispatch();
   const users = useSelector(getUsers).contacts;
   const filterFromStore = useSelector(getUsers).filter;
   console.log(filterFromStore);
-
+  console.log(users);
   // const deleteContact = contact => {
   //   setContacts(prev => {
   //     console.log(prev);

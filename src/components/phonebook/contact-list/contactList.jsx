@@ -24,7 +24,7 @@ export const ContactList = ({ user }) => {
     try {
       const contactsFromLocalStorage = localStorage.getItem('Contacts');
       const data = JSON.parse(contactsFromLocalStorage);
-
+      console.log(contactsFromLocalStorage.length);
       if (contactsFromLocalStorage.length !== 2) {
         dispatch(addUser(data));
 
@@ -38,7 +38,9 @@ export const ContactList = ({ user }) => {
     } catch (error) {
       console.error('Error ', error.message);
     }
+    // console.log(usersList);
   }, []);
+  console.log(usersList);
   return (
     <ul>
       {usersList.map(contact => {

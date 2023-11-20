@@ -39,8 +39,6 @@ export const ContactForm = () => {
       }
     }
 
-    // useEffect(localStorage.setItem('Contacts', JSON.stringify(data)));
-
     dispatch(addUser(newContact));
 
     console.log(usersFromStore);
@@ -48,8 +46,10 @@ export const ContactForm = () => {
   };
 
   useEffect(() => {
-    if (usersFromStore) {
-      localStorage.setItem('Contacts', JSON.stringify(data));
+    console.log(usersFromStore);
+    if (usersFromStore.length !== 0) {
+      console.log(usersFromStore);
+      localStorage.setItem('Contacts', JSON.stringify(usersFromStore));
     }
   }, [usersFromStore, data]);
 
