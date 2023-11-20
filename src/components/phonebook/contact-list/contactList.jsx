@@ -33,10 +33,10 @@ export const ContactList = ({ user }) => {
 
   useEffect(() => {
     console.log(usersFromStore);
-    // if (usersFromStore.length !== 0) {
-    //   console.log(usersFromStore);
-    localStorage.setItem('Contacts', JSON.stringify(usersFromStore));
-    //}
+    if (usersFromStore.length !== 0) {
+      console.log(usersFromStore);
+      localStorage.setItem('Contacts', JSON.stringify(usersFromStore));
+    }
   }, [usersFromStore, dispatch, usersList]);
 
   console.log(usersList);
