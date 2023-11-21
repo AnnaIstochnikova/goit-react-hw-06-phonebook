@@ -3,13 +3,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUsers } from 'redux/selectors';
-import {
-  addUser,
-  addUsersFromLocalStorage,
-  deleteUser,
-} from 'redux/usersSlice';
+import { addUsersFromLocalStorage, deleteUser } from 'redux/usersSlice';
 
-export const ContactList = ({ user }) => {
+export const ContactList = () => {
   const usersFromStore = useSelector(getUsers).contacts;
   const [usersList, setUsersList] = useState([]);
 
@@ -17,7 +13,7 @@ export const ContactList = ({ user }) => {
 
   const onDelete = contactId => {
     dispatch(deleteUser(contactId));
-    // setUsersList(usersFromStore);
+    setUsersList(usersFromStore);
   };
 
   useEffect(() => {
@@ -29,20 +25,23 @@ export const ContactList = ({ user }) => {
     } catch (error) {
       console.error('Error ', error.message);
     }
-  }, [usersFromStore, dispatch]);
+  }, []);
 
   useEffect(() => {
-    console.log(usersFromStore);
-    if (usersFromStore.length !== 0) {
-      console.log(usersFromStore);
-      localStorage.setItem('Contacts', JSON.stringify(usersFromStore));
-    }
-  }, [usersFromStore, dispatch, usersList]);
+    setUsersList(prev => {
+      return [...prev, ...usersFromStore];
+    });
+  }, [usersFromStore]);
 
-  console.log(usersList);
+  useEffect(() => {
+    localStorage.setItem('Contacts', JSON.stringify(usersList));
+    dispatch(addUsersFromLocalStorage(usersList));
+  }, [usersList, dispatch]);
+
   return (
     <ul>
       {usersList.map(contact => {
+        console.log(usersList);
         const { name, phoneNumber } = contact.userData;
         return (
           <li key={contact.id}>

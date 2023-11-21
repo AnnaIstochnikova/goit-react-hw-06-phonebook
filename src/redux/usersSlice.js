@@ -10,6 +10,9 @@ const phonebookSlice = createSlice({
   initialState: usersInitialState,
   reducers: {
     addUser: {
+      // reducer(state, action) {
+      //   return state.push(action.payload);
+      // },
       reducer(state, action) {
         return (state = { contacts: [...state?.contacts, action.payload] });
       },
@@ -36,12 +39,14 @@ const phonebookSlice = createSlice({
         return (state = { filter: action.payload });
       },
     },
+
     addUsersFromLocalStorage: {
       reducer(state, action) {
+        state = action.payload;
         console.log(action.payload);
-        return (state = {
-          contacts: [...state.contacts, action.payload],
-        });
+        // return (state = {
+        //   contacts: [action.payload],
+        // });
       },
     },
     // filterUser: {
