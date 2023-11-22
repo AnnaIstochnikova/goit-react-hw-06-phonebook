@@ -1,3 +1,4 @@
+import { nanoid } from '@reduxjs/toolkit';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,12 +8,13 @@ import { addUser } from 'redux/usersSlice';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const usersFromStore = useSelector(getUsers).contacts;
-  const [data, setData] = useState([]);
+  // const usersFromStore = useSelector(getUsers);
 
-  useEffect(() => {
-    setData(usersFromStore);
-  }, [usersFromStore]);
+  // const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //   setData(usersFromStore);
+  // }, [usersFromStore]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -22,20 +24,21 @@ export const ContactForm = () => {
     const newContact = {
       name: newName,
       phoneNumber: phoneNumber,
+      id: nanoid(),
     };
-    if (usersFromStore) {
-      for (const element of usersFromStore) {
-        const { name } = element.userData;
-        if (name === newName) {
-          alert(`${name} is already in contacts`);
-          return;
-        }
-      }
-    }
+    // if (usersFromStore) {
+    //   for (const element of usersFromStore) {
+    //     const { name } = element.userData;
+    //     if (name === newName) {
+    //       alert(`${name} is already in contacts`);
+    //       return;
+    //     }
+    //   }
+    // }
 
     dispatch(addUser(newContact));
 
-    console.log(usersFromStore);
+    // console.log(usersFromStore);
     form.reset();
   };
 
