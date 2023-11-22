@@ -39,7 +39,7 @@ export const Phonebook = () => {
     console.log(event);
     dispatch(addFilter(search));
     console.log(filterFromStore);
-    dispatch(addUser(users.filter(user => user === filterFromStore)));
+    // dispatch(addUser(users.filter(user => user === filterFromStore)));
     // dispatch(filterUser(name));
 
     // dispatch(filterUser(search));

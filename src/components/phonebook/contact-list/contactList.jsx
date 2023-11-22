@@ -8,6 +8,7 @@ import { addUsersFromLocalStorage, deleteUser } from 'redux/usersSlice';
 export const ContactList = () => {
   const usersFromStore = useSelector(getUsers).contacts;
   const [usersList, setUsersList] = useState([]);
+  const filter = useSelector(getUsers).filter;
 
   const dispatch = useDispatch();
 
@@ -28,10 +29,17 @@ export const ContactList = () => {
   }, []);
 
   useEffect(() => {
+    console.log(filter);
     setUsersList(prev => {
-      return [...prev, ...usersFromStore];
+      const allContacts = [...prev, ...usersFromStore];
+      // if (filter) {
+      //   console.log(allContacts);
+      //   allContacts.filter(contact => contact.userData.name.includes(filter));
+      // }
+      console.log(allContacts);
+      return allContacts;
     });
-  }, [usersFromStore]);
+  }, [usersFromStore, filter]);
 
   useEffect(() => {
     localStorage.setItem('Contacts', JSON.stringify(usersList));

@@ -36,9 +36,15 @@ const phonebookSlice = createSlice({
     },
     addFilter: {
       reducer(state, action) {
-        return (state = { filter: action.payload });
+        state.filter = action.payload;
       },
+      // return (state = {
+      //   contacts: [
+      //     ...state.contacts.filter(user => user.id !== action.payload),
+      //   ],
+      // });
     },
+    // },
 
     addUsersFromLocalStorage: {
       reducer(state, action) {
