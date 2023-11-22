@@ -14,8 +14,8 @@ export const Filter = ({ filterFn }) => {
   );
 };
 
-// Filter.propTypes = {
-//   h3: PropTypes.string,
-//   filterFn: PropTypes.func,
-//   input: PropTypes.string,
-// };
+Filter.propTypes = {
+  h3: PropTypes.string,
+  filterFn: PropTypes.func,
+  input: PropTypes.string,
+};

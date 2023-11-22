@@ -1,6 +1,5 @@
-import { nanoid } from '@reduxjs/toolkit';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUsers } from 'redux/selectors';
@@ -8,13 +7,7 @@ import { addUser } from 'redux/usersSlice';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  // const usersFromStore = useSelector(getUsers);
-
-  // const [data, setData] = useState([]);
-
-  // useEffect(() => {
-  //   setData(usersFromStore);
-  // }, [usersFromStore]);
+  const usersFromStore = useSelector(getUsers);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -26,19 +19,13 @@ export const ContactForm = () => {
       phoneNumber: phoneNumber,
       id: nanoid(),
     };
-    // if (usersFromStore) {
-    //   for (const element of usersFromStore) {
-    //     const { name } = element.userData;
-    //     if (name === newName) {
-    //       alert(`${name} is already in contacts`);
-    //       return;
-    //     }
-    //   }
-    // }
 
-    dispatch(addUser(newContact));
-
-    // console.log(usersFromStore);
+    const sameName = usersFromStore.find(user => user.name === newName);
+    if (sameName === undefined) {
+      dispatch(addUser(newContact));
+    } else {
+      alert(`${newName} is already in contacts`);
+    }
     form.reset();
   };
 
@@ -70,7 +57,11 @@ export const ContactForm = () => {
   );
 };
 
-// ContactForm.propTypes = {
-//   h3: PropTypes.string,
-//   onSubmit: PropTypes.func,
-// };
+ContactForm.propTypes = {
+  h3: PropTypes.string,
+  onSubmit: PropTypes.func,
+  name: PropTypes.string,
+  phoneNumber: PropTypes.string,
+  newContact: PropTypes.object,
+  sameName: PropTypes.object,
+};

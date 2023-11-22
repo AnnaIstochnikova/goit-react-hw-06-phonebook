@@ -1,5 +1,5 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getFilter, getUsers } from 'redux/selectors';
@@ -8,6 +8,7 @@ import { addUsersFromLocalStorage, deleteUser } from 'redux/usersSlice';
 export const ContactList = () => {
   const usersFromStore = useSelector(getUsers);
   const filter = useSelector(getFilter);
+
   const filteredUsers = usersFromStore.filter(user =>
     user.name.toUpperCase().includes(filter.toUpperCase())
   );
@@ -56,8 +57,11 @@ export const ContactList = () => {
   );
 };
 
-// ContactList.propTypes = {
-//   listItems: PropTypes.array,
-//   onDelete: PropTypes.func,
-//   id: PropTypes.string,
-// };
+ContactList.propTypes = {
+  onDelete: PropTypes.func,
+  id: PropTypes.string,
+  usersFromStore: PropTypes.object,
+  filter: PropTypes.string,
+  filteredUsers: PropTypes.object,
+  dispatch: PropTypes.func,
+};

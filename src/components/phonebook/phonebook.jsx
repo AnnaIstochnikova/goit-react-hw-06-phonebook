@@ -26,12 +26,10 @@ export const Phonebook = () => {
   );
 };
 
-// Phonebook.propTypes = {
-//   deleteContact: PropTypes.func,
-//   findContact: PropTypes.func,
-//   handleSubmit: PropTypes.func,
-//   allContacts: PropTypes.array,
-//   filteredContacts: PropTypes.array,
-//   h1: PropTypes.string,
-//   h2: PropTypes.string,
-// };
+Phonebook.propTypes = {
+  dispatch: PropTypes.func,
+  deleteContact: PropTypes.func,
+  findContact: PropTypes.func,
+  h1: PropTypes.string,
+  h2: PropTypes.string,
+};
