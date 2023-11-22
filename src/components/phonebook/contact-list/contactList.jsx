@@ -30,7 +30,7 @@ export const ContactList = () => {
     } catch (error) {
       console.error('Error ', error.message);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     localStorage.setItem('Contacts', JSON.stringify(usersFromStore));
